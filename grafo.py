@@ -1,27 +1,15 @@
-class Vertice(object):
-
-	def __init__(self,valor):
-		self.valor = valor
-		self.adyacentes = {}
-		self.buscado = False
-
-	def fue_buscado(self):
-		return self.buscado
-
-
 class Grafo(object):
 
 	def __init__(self):
 		self.vertices = {}
 		self.cantidadVertices = 0
 
-	def agregar_vertice(self,vertice):
-		"""
-		agrega un vertice al grafo 
-		"""
-
-		# FALTARIA UNA FORMA DE DEFINIR QUIENES SON SUS VECINOS
-		self.vertices[vertice.valor] = vertice
+ 	def agregar_vertice (self,vertice):
+ 		''' AGREGA UN VERTICE AL GRAFO, SI EL VERTICE YA ESTA EN EL GRAFO DEVUELVE FALSE
+ 		SI NO ESTA DEVUELVE TRUE'''
+		if (vertice in self.vertices): 
+			return False
+		self.vertices[vertice] = {} 
 		self.cantidadVertices += 1
 		return True
 
@@ -41,7 +29,11 @@ class Grafo(object):
 		return self.cantidadVertices
 
 	def son_adyacentes(self,vertice1,vertice2):
-		return vertice1 == vertice2[vertice1.valor]
+		'''DEVUELVE TRUE SI DOS VERTICES SON ADYACENTES'''
+		if (vertice1 in self.vertices[vertice2]): 
+			return True
+		else:
+			return False
 
 	def obtener_adyacentes(self,vertice):
 		return vertice.adyacentes
