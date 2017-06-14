@@ -4,7 +4,7 @@ class Grafo(object):
 		self.vertices = {}
 		self.cantidadVertices = 0
 
- 	def agregar_vertice (self,vertice):
+ 	def agregar_vertice(self,vertice):
  		''' AGREGA UN VERTICE AL GRAFO, SI EL VERTICE YA ESTA EN EL GRAFO DEVUELVE FALSE
  		SI NO ESTA DEVUELVE TRUE'''
 		if (vertice in self.vertices): 
@@ -14,18 +14,19 @@ class Grafo(object):
 		return True
 
 	def quitar_vertice(self,vertice):
-		"""
-		devuelve el valor del vertice si este existia dentro del diccionario
-		y None en caso contrario
-		"""
+		'''ELIMINA UN VERTICE, DEBO SACARLO DE SUS ADYACENTES TAMBIEN'''
+		adyacentes = self.obtener_adyacentes(vertice) 
+		for i in adyacentes:
+			del self.vertices[i][vertice]
+		del self.vertices[vertice]
+		self.cantidadVertices -= 1
 
-		# si NO ME EQUIVOCO FALTARIA QUITAR A ESTE VERTICE DE SUS RESPECTIVOS VECINOS
-		return self.vertices.pop(vertice.valor,None)
+	#def agregar_arista(self,vertice_origen,vertice_destino):
+
+	#def quitar_arista (self,vertice_origen,vertice_destino):
 
 	def tamanio_grafo(self):
-		"""
-		devuelve la cantidad de vertices en el grafo 
-		"""
+		'''DEVUELVE LA CANTIDAD DE VERTICES QUE TIENE EL GRAFO'''
 		return self.cantidadVertices
 
 	def son_adyacentes(self,vertice1,vertice2):
