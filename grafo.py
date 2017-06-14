@@ -69,8 +69,8 @@ class Grafo(object):
 	def obtener_adyacentes(self,vertice):
 		'''DEVUELVE UNA LISTA CON TODOS LOS VERTICES ADYACENTES'''
         if (not self.vertice_pertenece(vertice)):
-                    return None
+            return None
 		lista_adyacentes = []
-		for adyacente in self.vertices[vertice]:
+		for adyacente in self.vertices[vertice].keys():
 			lista_adyacentes.append(adyacente)
 		return lista_adyacentes
