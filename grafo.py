@@ -21,8 +21,12 @@ class Grafo(object):
 		del self.vertices[vertice]
 		self.cantidadVertices -= 1
 
-	#def agregar_arista(self,vertice_origen,vertice_destino):
-
+	def agregar_arista(self,vertice1,vertice2):
+                if (vertice1 == vertice2):
+                        return False
+                self.vertices[vertice1][vertice2] = True
+                self.vertices[vertice2][vertice1] = True
+                return True
 	#def quitar_arista (self,vertice_origen,vertice_destino):
 
 	def tamanio_grafo(self):
