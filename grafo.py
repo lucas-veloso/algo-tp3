@@ -16,7 +16,7 @@ class Grafo(object):
 	def quitar_vertice(self,vertice):
 		'''BOOLEAN ELIMINA UN VERTICE, DEBO SACARLO DE SUS ADYACENTES TAMBIEN'''
 		if (not self.vertice_pertenece(vertice)): #Si no pertenece al grafo no lo puedo quitar
-                        return False
+            return False
 		adyacentes = self.obtener_adyacentes(vertice) 
 		for i in adyacentes:
 			del self.vertices[i][vertice]
@@ -27,6 +27,8 @@ class Grafo(object):
 	def agregar_arista(self,vertice1,vertice2):
         '''BOOLEAN AGREGA LA ARISTA FORMADA POR EL VERTICE 1 Y EL VERTICE 2
         (SE CREA UNA ADYACENCIA ENTRE ELLOS)'''
+        if (not self.vertice_pertenece(vertice1) || not self.vertice_pertenece(vertice2)): #Si no existe algun vertice entonces no puede haber adyacencia
+	        return False
         if (vertice1 == vertice2):
             return False
         if (self.son_adyacentes(vertice1,vertice2)): #Si ya existe la arista no la vuelvo a agregar
