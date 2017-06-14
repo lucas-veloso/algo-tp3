@@ -19,8 +19,8 @@ class Grafo(object):
             return False
 		adyacentes = self.obtener_adyacentes(vertice) 
 		for i in adyacentes:
-			del self.vertices[i][vertice]
-		del self.vertices[vertice]
+			self.vertices[i].pop(vertice,None)
+		self.vertices.pop(vertice,None)
 		self.cantidadVertices -= 1
 		return True
 
@@ -44,8 +44,8 @@ class Grafo(object):
                 return False
         if (not self.son_adyacentes(vertice1,vertice2)): #Si no existe adyacencia no puedo borrar la arista
                 return False 
-        del self.vertices[vertice1][vertice2]
-        del self.vertices[vertice2][vertice1]
+        self.vertices[vertice1].pop(vertice2,None)
+        self.vertices[vertice2].pop(vertice1,None)
         return True
 	def tamanio_grafo(self):
 		'''DEVUELVE LA CANTIDAD DE VERTICES QUE TIENE EL GRAFO'''
