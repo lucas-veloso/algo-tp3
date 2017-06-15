@@ -4,6 +4,7 @@ def similares(grafo,usuario,cantidad):
 	if (not grafo.vertice_pertenece(usuario)):
 		return None
 
-	adyacentes = grafo.obtener_adyacentes(usuario)
+	adyacentes = grafo.obtener_adyacentes(usuario) #Lista de adyacentes del usuario
+	
 
 
