@@ -1,4 +1,5 @@
 from grafo import *
+from popgrafo import popular_grafo
 
 def print_test(cadena,bool):
 	if (bool):
@@ -6,6 +7,30 @@ def print_test(cadena,bool):
 	else:
 		print cadena + ": ERROR"
 	return
+
+def pruebas_popular_grafo():
+
+	vertices_archivo = [1,2,3,4,5,6,7,8,9,10,11,12,276,291,341,363,365,367,404,446,455]
+	adyacentes_vertice1 = [2,3,4,5,6,7,8,9,10,11,12]
+	adyacentes_vertice2 = [1,276,291,341,363,365,367,404,446,455]
+
+	grafo = popular_grafo('test.txt')
+	print grafo.vertices.keys()
+	print_test("el grafo tiene tam {}".format(len(vertices_archivo)), grafo.tamanio_grafo() == len(vertices_archivo))
+
+	for i in vertices_archivo:
+		print_test("el vertice {} esta en el grafo".format(i), grafo.vertice_pertenece(str(i)))
+
+	for i in adyacentes_vertice1:
+		print_test("el vertice {} es adyacente al vertice 1".format(i), grafo.son_adyacentes(str(i),"1"))
+		print_test("el vertice {} no es adyacente al vertice 2".format(i), not grafo.son_adyacentes(str(i),"2"))
+
+	for i in adyacentes_vertice2:
+		print_test("el vertice {} es adyacente al vertice 2".format(i), grafo.son_adyacentes(str(i),"2"))
+		print_test("el vertice {} no es adyacente al vertice 1".format(i), not grafo.son_adyacentes(str(i),"1"))
+
+	print_test("crear arista entre 455 y 12",grafo.agregar_arista("455","12"))
+	print_test("los vertices 455 y 12 son adyacentes", grafo.son_adyacentes("455","12"))
 
 
 def pruebas_grafo():
@@ -96,3 +121,4 @@ def pruebas_volumen():
 '''    MAIN   '''
 pruebas_grafo()
 pruebas_volumen()
+pruebas_popular_grafo()
