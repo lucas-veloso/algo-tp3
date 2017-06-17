@@ -1,3 +1,5 @@
+from cola import * 
+
 class Grafo(object):
 
 	def __init__(self):
@@ -99,3 +101,24 @@ class Grafo(object):
 		''' DEVUELVE LA DENSIDAD DEL GRAFO '''
 		densidad = ((2 * (self.cantidadAristas)) / ((self.cantidadVertices) * (self.cantidadVertices -1)))
 		return densidad
+
+
+def bfs(grafo,usuario):
+	visitados = {} #diccionario
+	orden = {}
+	orden[usuario] = 0
+	bfs_visitar(grafo, usuario, visitados, orden)
+	return orden #,padre
+
+def bfs_visitar (grafo, origen, visitados, orden):
+	q = Cola()
+	q.encolar(origen)
+	visitados[origen] = True
+	while  (not q.esta_vacia()):
+		v = q.desencolar()
+		adyacentes = grafo.obtener_adyacentes(v)
+		for w in adyacentes:
+			if w not in visitados: 
+				visitados[w] = True
+				orden[w] = orden[v] +1
+				q.encolar(w)
