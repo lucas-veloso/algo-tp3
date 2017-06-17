@@ -120,8 +120,18 @@ def pruebas_similares():
 	grafo = popular_grafo('test_head.txt')
 	similares(grafo,'1',3)
 
+def pruebas_recomendar():
+	grafo = popular_grafo('test_head.txt')
+	recomendar(grafo,'1',3)
+
+def pruebas_estadisticas():
+	grafo = popular_grafo('text_head.txt')
+	estadisticas(grafo)
+	
 '''    MAIN   '''
 #pruebas_grafo()
 #pruebas_volumen()
 #pruebas_popular_grafo()
 pruebas_similares()
+pruebas_recomendar()
+pruebas_estadisticas()
