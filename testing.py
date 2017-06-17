@@ -125,8 +125,12 @@ def pruebas_recomendar():
 	recomendar(grafo,'1',3)
 
 def pruebas_estadisticas():
-	grafo = popular_grafo('text_head.txt')
+	grafo = popular_grafo('test_head.txt')
 	estadisticas(grafo)
+
+def pruebas_distancias():
+	grafo = popular_grafo('orden.txt')
+	orden = distancias(grafo,'1')
 	
 '''    MAIN   '''
 #pruebas_grafo()
@@ -135,3 +139,4 @@ def pruebas_estadisticas():
 pruebas_similares()
 pruebas_recomendar()
 pruebas_estadisticas()
+pruebas_distancias()
