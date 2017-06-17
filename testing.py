@@ -1,5 +1,6 @@
 from grafo import *
 from popgrafo import popular_grafo
+from comandos import *
 
 def print_test(cadena,bool):
 	if (bool):
@@ -31,7 +32,6 @@ def pruebas_popular_grafo():
 
 	print_test("crear arista entre 455 y 12",grafo.agregar_arista("455","12"))
 	print_test("los vertices 455 y 12 son adyacentes", grafo.son_adyacentes("455","12"))
-
 
 def pruebas_grafo():
 	print("-------- PRUEBAS CREAR GRAFO --------")
@@ -116,9 +116,12 @@ def pruebas_volumen():
 
 	print_test("Verificar tamanio del grafo",grafo.tamanio_grafo() == 25000)
 
-
+def pruebas_similares():
+	grafo = popular_grafo('test_head.txt')
+	similares(grafo,'1',3)
 
 '''    MAIN   '''
-pruebas_grafo()
-pruebas_volumen()
-pruebas_popular_grafo()
+#pruebas_grafo()
+#pruebas_volumen()
+#pruebas_popular_grafo()
+pruebas_similares()
