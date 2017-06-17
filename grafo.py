@@ -94,3 +94,8 @@ class Grafo(object):
 			suma_grados += len(self.obtener_adyacentes(i))
 		grado_promedio = suma_grados / self.cantidadVertices
 		return grado_promedio
+
+	def obtener_densidad(self):
+		''' DEVUELVE LA DENSIDAD DEL GRAFO '''
+		densidad = ((2 * (self.cantidadAristas)) / ((self.cantidadVertices) * (self.cantidadVertices -1)))
+		return densidad
