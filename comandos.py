@@ -75,6 +75,12 @@ def recomendar(grafo,usuario,cantidad):
 	lista_recomendables = crear_lista_rw(recomendables) #Transformar hash en lista de listas
 	imprimir_lista_rw(lista_recomendables,cantidad) #Imprimir vertices recomendables
 
+def distancias(grafo,usuario):
+	orden = bfs(grafo,usuario) #Diccionario con vertices y sus distancias respecto del usuario
+	lista_distancia = crear_lista_rw(orden) #Lo paso a la famosa lista de listas
+	for i in range(1,len(lista_distancia)):
+		print ("Distancia ") + str(i) +  ": " + str(len(lista_distancia[i]))
+	
 def estadisticas(grafo):
 	print ("Cantidad de vertices: ") + str(grafo.tamanio_grafo())
 	print ("Cantidad de aristas: ") + str(grafo.cantidad_aristas())
