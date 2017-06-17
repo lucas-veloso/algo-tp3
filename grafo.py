@@ -3,6 +3,7 @@ class Grafo(object):
 	def __init__(self):
 		self.vertices = {}
 		self.cantidadVertices = 0
+		self.cantidadAristas = 0
 
  	def agregar_vertice(self,vertice):
  		''' AGREGA UN VERTICE AL GRAFO, SI EL VERTICE YA ESTA EN EL GRAFO DEVUELVE FALSE
@@ -35,6 +36,7 @@ class Grafo(object):
 			return False
 		self.vertices[vertice1][vertice2] = True
 		self.vertices[vertice2][vertice1] = True
+		self.cantidadAristas += 1
 		return True
 
 	def quitar_arista (self,vertice1,vertice2):
@@ -46,11 +48,16 @@ class Grafo(object):
 			return False 
 		self.vertices[vertice1].pop(vertice2,None)
 		self.vertices[vertice2].pop(vertice1,None)
+		self.cantidadAristas -=1
 		return True
 
 	def tamanio_grafo(self):
 		'''DEVUELVE LA CANTIDAD DE VERTICES QUE TIENE EL GRAFO'''
 		return self.cantidadVertices
+
+	def cantidad_aristas(self):
+		''' DEVUELVE LA CANTIDAD DE ARISTAS QUE TIENE EL GRAFO'''
+		return self.cantidadAristas
 
 	def vertice_pertenece(self,vertice):
 		'''BOOLEAN VERIFICA SI UN VERTICE EXISTE EN EL GRAFO'''
@@ -72,7 +79,18 @@ class Grafo(object):
 		'''DEVUELVE UNA LISTA CON TODOS LOS VERTICES ADYACENTES'''
 		if (not self.vertice_pertenece(vertice)):
 			return None
-		lista_adyacentes = []
-		for adyacente in self.vertices[vertice].keys():
-			lista_adyacentes.append(adyacente)
-		return lista_adyacentes
+		lista_adyacentes = list(self.vertices[vertice].keys())
+		return  lista_adyacentes
+
+	def obtener_identificadores(self):
+		'''DEVUELVE UNA LISTA CON TODOS LOS VERTICES DEL GRAFO'''
+		lista_vertices = list(self.vertices.keys())
+		return lista_vertices
+
+	def obtener_grado_promedio(self):
+		''' DEVUELVE EL PROMEDIO DE  LOS GRADOS DE LOS VERTICES'''
+		suma_grados = 0
+		for i in self.vertices.keys():
+			suma_grados += len(self.obtener_adyacentes(i))
+		grado_promedio = suma_grados / self.cantidadVertices
+		return grado_promedio
