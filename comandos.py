@@ -10,6 +10,7 @@ LARGO_CAMINO = 20
 def rw (grafo,usuario,guardar_adyacentes):
 	''' REALIZA UN RANDOM WALK Y GUARDA LOS VERTICES Y SUS OCURRENCIAS EN UN HASH 
 	SI <guardar_adyacentes> ES FALSE ENTONCES NO SE GUARDARAN EN EL DICCIONARIO SI ES TRUE SI SE GUARDARAN'''
+
 	random_walk = {}
 	for i in range(0,CANTIDAD_CAMINOS):
 		adyacentes = grafo.obtener_adyacentes(usuario)
@@ -66,6 +67,10 @@ def recomendar(grafo,usuario,cantidad):
 	'''DEVUELVE UNA LISTA DE USUARIOS SIMILARES CON LOS CUALES NO TENGA RELACION'''
 	if (not grafo.vertice_pertenece(usuario)):
 		return None
+
+	if (grafo.obtener_densidad() == 1):
+		print ("El grafo es completo todos estan conectados con todos, nadie que recomendar")
+		return None
 	recomendables = rw(grafo,usuario,False) #Realizar random walk
 	lista_recomendables = crear_lista_rw(recomendables) #Transformar hash en lista de listas
 	imprimir_lista_rw(lista_recomendables,cantidad) #Imprimir vertices recomendables
@@ -75,3 +80,4 @@ def estadisticas(grafo):
 	print ("Cantidad de aristas: ") + str(grafo.cantidad_aristas())
 	print ("Promedio de grado de salida de cada vertice: ") + str(grafo.obtener_grado_promedio())
 	print ("Promedio de grado de entrada de cada vertice: ") + str(grafo.obtener_grado_promedio())
+	print ("Densidad del grafo: ") + str(grafo.obtener_densidad())
