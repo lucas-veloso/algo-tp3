@@ -64,7 +64,7 @@ class Comandos(object):
 			return None
 		similares = rw(grafo,usuario,True) # Realizar random walk
 		lista_similares = crear_lista_rw(similares) #Trasformar hash en lista de listas
-		imprimir_lista_rw(lista_similares,cantidad) #Imprimir vertices similares
+		imprimir_lista_rw(lista_similares,int(cantidad)) #Imprimir vertices similares
 	
 	def recomendar(self,grafo,usuario,cantidad):
 		'''DEVUELVE UNA LISTA DE USUARIOS SIMILARES CON LOS CUALES NO TENGA RELACION'''
@@ -76,7 +76,7 @@ class Comandos(object):
 			return None
 		recomendables = rw(grafo,usuario,False) #Realizar random walk
 		lista_recomendables = crear_lista_rw(recomendables) #Transformar hash en lista de listas
-		imprimir_lista_rw(lista_recomendables,cantidad) #Imprimir vertices recomendables
+		imprimir_lista_rw(lista_recomendables,int(cantidad)) #Imprimir vertices recomendables
 	
 	def centralidad(self,grafo,cantidad):
 		v_centrales = {}
@@ -94,7 +94,7 @@ class Comandos(object):
 	
 		''' TENGO UN HASH DE USUARIOS Y CANTIDAD DE OCURRENCIAS EN CAMINOS ALEATORIOS'''
 		lista_centrales = crear_lista_rw(v_centrales)
-		imprimir_lista_rw(lista_centrales,cantidad)
+		imprimir_lista_rw(lista_centrales,int(cantidad))
 	
 	def distancias(self,grafo,usuario):
 		orden = bfs(grafo,usuario) #Diccionario con vertices y sus distancias respecto del usuario

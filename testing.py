@@ -118,30 +118,35 @@ def pruebas_volumen():
 
 def pruebas_similares():
 	grafo = popular_grafo('test_head.txt')
-	similares(grafo,'1',3)
+	comando = Comandos()
+	comando.similares(grafo,'1',3)
 
 def pruebas_recomendar():
 	grafo = popular_grafo('test_head.txt')
-	recomendar(grafo,'1',3)
+	comando = Comandos()
+	comando.recomendar(grafo,'1',3)
 
 def pruebas_estadisticas():
 	grafo = popular_grafo('test_head.txt')
-	estadisticas(grafo)
+	comando = Comandos()
+	comando.estadisticas(grafo)
 
 def pruebas_distancias():
 	grafo = popular_grafo('orden.txt')
-	orden = distancias(grafo,'1')
+	comando = Comandos()
+	orden = comando.distancias(grafo,'1')
 
 def pruebas_centralidad():
 	grafo = popular_grafo('test_head.txt')
-	centralidad(grafo,3)
+	comando = Comandos()
+	comando.centralidad(grafo,3)
 	
 '''    MAIN   '''
 #pruebas_grafo()
 #pruebas_volumen()
 #pruebas_popular_grafo()
 pruebas_similares()
-pruebas_recomendar()
-pruebas_estadisticas()
-pruebas_distancias()
-pruebas_centralidad()
+# pruebas_recomendar()
+# pruebas_estadisticas()
+# pruebas_distancias()
+# pruebas_centralidad()

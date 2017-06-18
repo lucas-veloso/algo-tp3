@@ -32,7 +32,12 @@ def main():
 		comando = raw_input('--> ')
 		if comando != "salir":
 			ncomando, args  = unpack(comando.split(' '))
-			dic[ncomando](grafo,*args)
+			try:
+				dic[ncomando](grafo,*args)
+			except TypeError:
+				print "Numero de argumentos incorrecto. Intente nuevamente"
+				pass
+
 
 
 	
