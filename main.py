@@ -36,10 +36,8 @@ def main():
 				dic[ncomando](grafo,*args)
 			except KeyError:
 				print "{} No es una accion valida, Intente nuevamente".format(ncomando)
-				pass
 			except Exception as e:
 				print "{}.Intente nuevamente".format(e)
-				pass
 
 
 	
