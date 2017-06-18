@@ -110,7 +110,9 @@ class Comandos(object):
 		print ("Densidad del grafo: ") + str(grafo.obtener_densidad())
 
 	def comunidades(self,grafo,usuario = '1',ncaminos = 1000, lcamino = 500):
-		
+		"""
+		utiliza label propagation para clasificar los usuarios en comunidades
+		"""
 		comunidades = {}
 		
 		for i in range(ncaminos):
@@ -125,7 +127,8 @@ class Comandos(object):
 				adyacentes = grafo.obtener_adyacentes(adyacentes[random]) 
 
 		for key, value in comunidades.iteritems():
-			if len(value) > 4 and len(value) < 2000:
+			largo = len(value)
+			if largo > 4 and largo < 2000:
 				print "comunidad: {}, miembros {}".format(key,value) 
 
 def max_freq(grafo,vert):
