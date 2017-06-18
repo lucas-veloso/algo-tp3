@@ -107,4 +107,40 @@ class Comandos(object):
 		print ("Cantidad de aristas: ") + str(grafo.cantidad_aristas())
 		print ("Promedio de grado de salida de cada vertice: ") + str(grafo.obtener_grado_promedio())
 		print ("Promedio de grado de entrada de cada vertice: ") + str(grafo.obtener_grado_promedio())
-		print ("Densidad del grafo: ") + str(grafo.obtener_densidad())	
+		print ("Densidad del grafo: ") + str(grafo.obtener_densidad())
+
+	def comunidades(self,grafo,usuario = '1',ncaminos = 1000, lcamino = 500):
+		
+		comunidades = {}
+		
+		for i in range(ncaminos):
+			adyacentes = grafo.obtener_adyacentes(usuario)							
+			for j in range(lcamino):
+				random = randint(0,len(adyacentes)-1)
+				nvertice = max_freq(grafo,adyacentes[random])
+				if nvertice not in comunidades:
+					comunidades[nvertice] = [adyacentes[random]]
+				elif adyacentes[random] not in comunidades[nvertice]:
+					comunidades[nvertice].append(adyacentes[random])
+				adyacentes = grafo.obtener_adyacentes(adyacentes[random]) 
+
+		for key, value in comunidades.iteritems():
+			if len(value) > 4 and len(value) < 2000:
+				print "comunidad: {}, miembros {}".format(key,value) 
+
+def max_freq(grafo,vert):
+	mfreq = {}
+	for vertice in grafo.vertices[vert]:
+		if vertice in mfreq:
+			mfreq[vertice] += 1
+		else:
+			mfreq[vertice] = 1
+
+	maxFreq = 0 
+	nombreVertice = ''
+
+	for key,value in mfreq.iteritems():
+		if value > maxFreq:
+ 			nombreVertice = key
+
+ 	return nombreVertice

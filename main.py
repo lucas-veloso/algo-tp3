@@ -16,6 +16,7 @@ dic = { "similares" : command.similares,
 		"centralidad" : command.centralidad,
 		"distancias" : command.distancias,
 		"estadisticas" : command.estadisticas,
+		"comunidades" : command.comunidades
 	  }
 
 
