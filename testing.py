@@ -131,6 +131,10 @@ def pruebas_estadisticas():
 def pruebas_distancias():
 	grafo = popular_grafo('orden.txt')
 	orden = distancias(grafo,'1')
+
+def pruebas_centralidad():
+	grafo = popular_grafo('test_head.txt')
+	centralidad(grafo,3)
 	
 '''    MAIN   '''
 #pruebas_grafo()
@@ -140,3 +144,4 @@ pruebas_similares()
 pruebas_recomendar()
 pruebas_estadisticas()
 pruebas_distancias()
+pruebas_centralidad()
