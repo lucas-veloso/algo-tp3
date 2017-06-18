@@ -1,9 +1,11 @@
 from grafo import *
 from random import randint
+import random
 
 ''' CONSTANTES '''
 CANTIDAD_CAMINOS = 1000
-LARGO_CAMINO = 20
+LARGO_CAMINO = 500
+LARGO_CAMINO_CENTRALIDAD = 500
 
 
 ''' --------------------------	METODOS AUXILIARES	--------------------------'''
@@ -74,6 +76,24 @@ def recomendar(grafo,usuario,cantidad):
 	recomendables = rw(grafo,usuario,False) #Realizar random walk
 	lista_recomendables = crear_lista_rw(recomendables) #Transformar hash en lista de listas
 	imprimir_lista_rw(lista_recomendables,cantidad) #Imprimir vertices recomendables
+
+def centralidad(grafo,cantidad):
+	v_centrales = {}
+	for i in range(0,CANTIDAD_CAMINOS):
+		vertices = grafo.obtener_identificadores()
+		vertice_random = random.choice(vertices)
+		adyacentes = grafo.obtener_adyacentes(vertice_random)
+		for j in range(0,LARGO_CAMINO_CENTRALIDAD):
+			p_random = randint(0,len(adyacentes)-1)
+			if (adyacentes[p_random] in v_centrales):
+				v_centrales[adyacentes[p_random]] +=1
+			else:
+				v_centrales[adyacentes[p_random]] = 1
+		adyacentes = grafo.obtener_adyacentes(adyacentes[p_random])
+
+	''' TENGO UN HASH DE USUARIOS Y CANTIDAD DE OCURRENCIAS EN CAMINOS ALEATORIOS'''
+	lista_centrales = crear_lista_rw(v_centrales)
+	imprimir_lista_rw(lista_centrales,cantidad)
 
 def distancias(grafo,usuario):
 	orden = bfs(grafo,usuario) #Diccionario con vertices y sus distancias respecto del usuario
