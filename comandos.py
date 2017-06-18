@@ -55,55 +55,56 @@ def imprimir_lista_rw(lista,cantidad):
 	print
 
 ''' --------------------------	FUNCIONALIDADES TP3	--------------------------'''
-
-def similares(grafo,usuario,cantidad):
-	'''DEVUELVE UNA LISTA CON LOS N USUARIOS MAS SIMILARES AL USUARIO
-	DE MAYOR A MENOR SIMILARIDAD'''
-	if (not grafo.vertice_pertenece(usuario)):
-		return None
-	similares = rw(grafo,usuario,True) # Realizar random walk
-	lista_similares = crear_lista_rw(similares) #Trasformar hash en lista de listas
-	imprimir_lista_rw(lista_similares,cantidad) #Imprimir vertices similares
-
-def recomendar(grafo,usuario,cantidad):
-	'''DEVUELVE UNA LISTA DE USUARIOS SIMILARES CON LOS CUALES NO TENGA RELACION'''
-	if (not grafo.vertice_pertenece(usuario)):
-		return None
-
-	if (grafo.obtener_densidad() == 1):
-		print ("El grafo es completo todos estan conectados con todos, nadie que recomendar")
-		return None
-	recomendables = rw(grafo,usuario,False) #Realizar random walk
-	lista_recomendables = crear_lista_rw(recomendables) #Transformar hash en lista de listas
-	imprimir_lista_rw(lista_recomendables,cantidad) #Imprimir vertices recomendables
-
-def centralidad(grafo,cantidad):
-	v_centrales = {}
-	for i in range(0,CANTIDAD_CAMINOS):
-		vertices = grafo.obtener_identificadores()
-		vertice_random = random.choice(vertices)
-		adyacentes = grafo.obtener_adyacentes(vertice_random)
-		for j in range(0,LARGO_CAMINO_CENTRALIDAD):
-			p_random = randint(0,len(adyacentes)-1)
-			if (adyacentes[p_random] in v_centrales):
-				v_centrales[adyacentes[p_random]] +=1
-			else:
-				v_centrales[adyacentes[p_random]] = 1
-		adyacentes = grafo.obtener_adyacentes(adyacentes[p_random])
-
-	''' TENGO UN HASH DE USUARIOS Y CANTIDAD DE OCURRENCIAS EN CAMINOS ALEATORIOS'''
-	lista_centrales = crear_lista_rw(v_centrales)
-	imprimir_lista_rw(lista_centrales,cantidad)
-
-def distancias(grafo,usuario):
-	orden = bfs(grafo,usuario) #Diccionario con vertices y sus distancias respecto del usuario
-	lista_distancia = crear_lista_rw(orden) #Lo paso a la famosa lista de listas
-	for i in range(1,len(lista_distancia)):
-		print ("Distancia ") + str(i) +  ": " + str(len(lista_distancia[i]))
+class Comandos(object):
 	
-def estadisticas(grafo):
-	print ("Cantidad de vertices: ") + str(grafo.tamanio_grafo())
-	print ("Cantidad de aristas: ") + str(grafo.cantidad_aristas())
-	print ("Promedio de grado de salida de cada vertice: ") + str(grafo.obtener_grado_promedio())
-	print ("Promedio de grado de entrada de cada vertice: ") + str(grafo.obtener_grado_promedio())
-	print ("Densidad del grafo: ") + str(grafo.obtener_densidad())
+	def similares(self,grafo,usuario,cantidad):
+		'''DEVUELVE UNA LISTA CON LOS N USUARIOS MAS SIMILARES AL USUARIO
+		DE MAYOR A MENOR SIMILARIDAD'''
+		if (not grafo.vertice_pertenece(usuario)):
+			return None
+		similares = rw(grafo,usuario,True) # Realizar random walk
+		lista_similares = crear_lista_rw(similares) #Trasformar hash en lista de listas
+		imprimir_lista_rw(lista_similares,cantidad) #Imprimir vertices similares
+	
+	def recomendar(self,grafo,usuario,cantidad):
+		'''DEVUELVE UNA LISTA DE USUARIOS SIMILARES CON LOS CUALES NO TENGA RELACION'''
+		if (not grafo.vertice_pertenece(usuario)):
+			return None
+	
+		if (grafo.obtener_densidad() == 1):
+			print ("El grafo es completo todos estan conectados con todos, nadie que recomendar")
+			return None
+		recomendables = rw(grafo,usuario,False) #Realizar random walk
+		lista_recomendables = crear_lista_rw(recomendables) #Transformar hash en lista de listas
+		imprimir_lista_rw(lista_recomendables,cantidad) #Imprimir vertices recomendables
+	
+	def centralidad(self,grafo,cantidad):
+		v_centrales = {}
+		for i in range(0,CANTIDAD_CAMINOS):
+			vertices = grafo.obtener_identificadores()
+			vertice_random = random.choice(vertices)
+			adyacentes = grafo.obtener_adyacentes(vertice_random)
+			for j in range(0,LARGO_CAMINO_CENTRALIDAD):
+				p_random = randint(0,len(adyacentes)-1)
+				if (adyacentes[p_random] in v_centrales):
+					v_centrales[adyacentes[p_random]] +=1
+				else:
+					v_centrales[adyacentes[p_random]] = 1
+			adyacentes = grafo.obtener_adyacentes(adyacentes[p_random])
+	
+		''' TENGO UN HASH DE USUARIOS Y CANTIDAD DE OCURRENCIAS EN CAMINOS ALEATORIOS'''
+		lista_centrales = crear_lista_rw(v_centrales)
+		imprimir_lista_rw(lista_centrales,cantidad)
+	
+	def distancias(self,grafo,usuario):
+		orden = bfs(grafo,usuario) #Diccionario con vertices y sus distancias respecto del usuario
+		lista_distancia = crear_lista_rw(orden) #Lo paso a la famosa lista de listas
+		for i in range(1,len(lista_distancia)):
+			print ("Distancia ") + str(i) +  ": " + str(len(lista_distancia[i]))
+		
+	def estadisticas(self,grafo):
+		print ("Cantidad de vertices: ") + str(grafo.tamanio_grafo())
+		print ("Cantidad de aristas: ") + str(grafo.cantidad_aristas())
+		print ("Promedio de grado de salida de cada vertice: ") + str(grafo.obtener_grado_promedio())
+		print ("Promedio de grado de entrada de cada vertice: ") + str(grafo.obtener_grado_promedio())
+		print ("Densidad del grafo: ") + str(grafo.obtener_densidad())	
