@@ -1,4 +1,5 @@
 from cola import * 
+from time import time
 
 class Grafo(object):
 
@@ -114,6 +115,8 @@ def bfs_visitar (grafo, origen, visitados, orden):
 	q = Cola()
 	q.encolar(origen)
 	visitados[origen] = True
+	print ("Iniciando bfs_visitar...")
+	tiempo_inicial = time()
 	while  (not q.esta_vacia()):
 		v = q.desencolar()
 		adyacentes = grafo.obtener_adyacentes(v)
@@ -122,3 +125,6 @@ def bfs_visitar (grafo, origen, visitados, orden):
 				visitados[w] = True
 				orden[w] = orden[v] +1
 				q.encolar(w)
+	tiempo_final = time()
+	tiempo_total = tiempo_final - tiempo_inicial
+	print ("bfs_visitar tardo : ") + str(tiempo_total)

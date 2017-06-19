@@ -103,20 +103,22 @@ class Comandos(object):
 		tiempo_final = time()
 		tiempo_total = tiempo_final - tiempo_inicial
 		print ("BFS Tardo: ") + str(tiempo_total)
-		#tiempo_inicial = time()
+		print ("Iniciando impresion...")
+		tiempo_inicial = time()
 		lista_distancia = crear_lista_rw(orden) #Lo paso a la famosa lista de listas
 		for i in range(1,len(lista_distancia)):
 			if (lista_distancia[i] != []):
 				print ("Distancia ") + str(i) +  ": " + str(len(lista_distancia[i]))
-		#tiempo_final = time()
-		#tiempo_total = tiempo_final - tiempo_inicial
-		#print ("Impresion y listas anidadas tardo: "),tiempo_total
+		tiempo_final = time()
+		tiempo_total = tiempo_final - tiempo_inicial
+		print ("Impresion y listas anidadas tardo: ") + str(tiempo_total)
 		
 	def estadisticas(self,grafo):
 		print ("Cantidad de vertices: ") + str(grafo.tamanio_grafo())
 		print ("Cantidad de aristas: ") + str(grafo.cantidad_aristas())
-		print ("Promedio de grado de salida de cada vertice: ") + str(grafo.obtener_grado_promedio())
-		print ("Promedio de grado de entrada de cada vertice: ") + str(grafo.obtener_grado_promedio())
+		grados_promedio = grafo.obtener_grado_promedio()
+		print ("Promedio de grado de salida de cada vertice: ") + str(grados_promedio)
+		print ("Promedio de grado de entrada de cada vertice: ") + str(grados_promedio)
 		print ("Densidad del grafo: ") + str(grafo.obtener_densidad())
 
 	def comunidades(self,grafo,usuario = '1',ncaminos = 1000, lcamino = 500):
