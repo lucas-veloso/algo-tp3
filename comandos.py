@@ -3,10 +3,9 @@ from random import randint
 import random
 from time import time
 ''' CONSTANTES '''
-CANTIDAD_CAMINOS = 1000
-LARGO_CAMINO = 500
-LARGO_CAMINO_CENTRALIDAD = 500
-
+CANTIDAD_CAMINOS = 20
+LARGO_CAMINO = 10000
+LARGO_CAMINO_CENTRALIDAD = 10000
 
 ''' --------------------------	METODOS AUXILIARES	--------------------------'''
 def rw (grafo,usuario,guardar_adyacentes):
@@ -60,14 +59,19 @@ class Comandos(object):
 	def similares(self,grafo,usuario,cantidad):
 		'''DEVUELVE UNA LISTA CON LOS N USUARIOS MAS SIMILARES AL USUARIO
 		DE MAYOR A MENOR SIMILARIDAD'''
+		t_i = time()
 		if (not grafo.vertice_pertenece(usuario)):
 			return None
 		similares = rw(grafo,usuario,True) # Realizar random walk
 		lista_similares = crear_lista_rw(similares) #Trasformar hash en lista de listas
 		imprimir_lista_rw(lista_similares,int(cantidad)) #Imprimir vertices similares
-	
+		t_f = time()
+		t_t = t_f -t_i
+		print ("Similares tardo: ") + str(t_t)
+		
 	def recomendar(self,grafo,usuario,cantidad):
 		'''DEVUELVE UNA LISTA DE USUARIOS SIMILARES CON LOS CUALES NO TENGA RELACION'''
+		t_i = time()
 		if (not grafo.vertice_pertenece(usuario)):
 			return None
 	
@@ -77,11 +81,15 @@ class Comandos(object):
 		recomendables = rw(grafo,usuario,False) #Realizar random walk
 		lista_recomendables = crear_lista_rw(recomendables) #Transformar hash en lista de listas
 		imprimir_lista_rw(lista_recomendables,int(cantidad)) #Imprimir vertices recomendables
-	
+		t_f = time()
+		t_t = t_f - t_i
+		print ("Recomendar tardo: ") + str(t_t)
+
 	def centralidad(self,grafo,cantidad):
+		t_i = time()
 		v_centrales = {}
+		vertices = grafo.obtener_identificadores()
 		for i in range(0,CANTIDAD_CAMINOS):
-			vertices = grafo.obtener_identificadores()
 			vertice_random = random.choice(vertices)
 			adyacentes = grafo.obtener_adyacentes(vertice_random)
 			for j in range(0,LARGO_CAMINO_CENTRALIDAD):
@@ -90,16 +98,32 @@ class Comandos(object):
 					v_centrales[adyacentes[p_random]] +=1
 				else:
 					v_centrales[adyacentes[p_random]] = 1
-			adyacentes = grafo.obtener_adyacentes(adyacentes[p_random])
+				adyacentes = grafo.obtener_adyacentes(adyacentes[p_random])
 	
 		''' TENGO UN HASH DE USUARIOS Y CANTIDAD DE OCURRENCIAS EN CAMINOS ALEATORIOS'''
 		lista_centrales = crear_lista_rw(v_centrales)
 		imprimir_lista_rw(lista_centrales,int(cantidad))
+		t_f = time()
+		t_t = t_f - t_i
+		print ("Centralidad tardo: ") + str(t_t)
+
+	def camino(self,grafo,origen,destino):
+		padres = caminos_minimos(grafo,origen,destino)
+		camino = []
+		llegada = padres[destino]
+		while llegada != origen :
+			camino.insert(0,llegada)
+			llegada = padres[llegada]
+	
+			print str(origen) + "->",
+			for i in range(0,len(camino)):
+				print str(camino[i]) + "->",
+			print str(destino)
 	
 	def distancias(self,grafo,usuario):
 		print ("Iniciando BFS...")
 		tiempo_inicial = time()
-		orden = bfs(grafo,usuario) #Diccionario con vertices y sus distancias respecto del usuario
+		orden = bfs_orden(grafo,usuario) #Diccionario con vertices y sus distancias respecto del usuario
 		tiempo_final = time()
 		tiempo_total = tiempo_final - tiempo_inicial
 		print ("BFS Tardo: ") + str(tiempo_total)
@@ -114,12 +138,16 @@ class Comandos(object):
 		print ("Impresion y listas anidadas tardo: ") + str(tiempo_total)
 		
 	def estadisticas(self,grafo):
+		t_i = time()
 		print ("Cantidad de vertices: ") + str(grafo.tamanio_grafo())
 		print ("Cantidad de aristas: ") + str(grafo.cantidad_aristas())
 		grados_promedio = grafo.obtener_grado_promedio()
 		print ("Promedio de grado de salida de cada vertice: ") + str(grados_promedio)
 		print ("Promedio de grado de entrada de cada vertice: ") + str(grados_promedio)
 		print ("Densidad del grafo: ") + str(grafo.obtener_densidad())
+		t_f = time()
+		t_t = t_f - t_i
+		print ("Estadisticas tardo: ") + str(t_t)
 
 	def comunidades(self,grafo,usuario = '1',ncaminos = 1000, lcamino = 500):
 		"""
