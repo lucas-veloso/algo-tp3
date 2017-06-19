@@ -1,7 +1,7 @@
 from grafo import *
 from random import randint
 import random
-
+from time import time
 ''' CONSTANTES '''
 CANTIDAD_CAMINOS = 1000
 LARGO_CAMINO = 500
@@ -97,10 +97,20 @@ class Comandos(object):
 		imprimir_lista_rw(lista_centrales,int(cantidad))
 	
 	def distancias(self,grafo,usuario):
+		print ("Iniciando BFS...")
+		tiempo_inicial = time()
 		orden = bfs(grafo,usuario) #Diccionario con vertices y sus distancias respecto del usuario
+		tiempo_final = time()
+		tiempo_total = tiempo_final - tiempo_inicial
+		print ("BFS Tardo: ") + str(tiempo_total)
+		#tiempo_inicial = time()
 		lista_distancia = crear_lista_rw(orden) #Lo paso a la famosa lista de listas
 		for i in range(1,len(lista_distancia)):
-			print ("Distancia ") + str(i) +  ": " + str(len(lista_distancia[i]))
+			if (lista_distancia[i] != []):
+				print ("Distancia ") + str(i) +  ": " + str(len(lista_distancia[i]))
+		#tiempo_final = time()
+		#tiempo_total = tiempo_final - tiempo_inicial
+		#print ("Impresion y listas anidadas tardo: "),tiempo_total
 		
 	def estadisticas(self,grafo):
 		print ("Cantidad de vertices: ") + str(grafo.tamanio_grafo())
