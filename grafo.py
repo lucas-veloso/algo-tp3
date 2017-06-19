@@ -104,14 +104,17 @@ class Grafo(object):
 		return densidad
 
 
-def bfs(grafo,usuario):
+# def bfs(grafo,usuario):
+# 	visitados = {} #diccionario
+# 	orden = {}
+# 	orden[usuario] = 0
+# 	bfs_visitar(grafo, usuario, visitados, orden)
+# 	return orden #,padre
+
+def bfs_orden (grafo, usuario):
 	visitados = {} #diccionario
 	orden = {}
 	orden[usuario] = 0
-	bfs_visitar(grafo, usuario, visitados, orden)
-	return orden #,padre
-
-def bfs_visitar (grafo, origen, visitados, orden):
 	q = Cola()
 	q.encolar(origen)
 	visitados[origen] = True
@@ -128,3 +131,27 @@ def bfs_visitar (grafo, origen, visitados, orden):
 	tiempo_final = time()
 	tiempo_total = tiempo_final - tiempo_inicial
 	print ("bfs_visitar tardo : ") + str(tiempo_total)
+	return orden
+
+
+def caminos_minimos(grafo,origen,destino):
+	q = Cola()
+	visitados = {}
+	padre = {}
+	vertices = grafo.obtener_identificadores()
+	for vertice in vertices:
+		visitados[vertice] = False
+		padre[vertice] = None
+	q.encolar(origen)
+	while (not q.esta_vacia()):
+		actual = q.desencolar()
+		visitados[actual] = True
+		adyacentes = grafo.obtener_adyacentes(actual)
+		for ady in adyacentes:
+			if visitados[ady] == False :
+				visitados[ady] = True
+				padre[ady] = actual
+				q.encolar(ady)
+		if actual == destino and padre[actual] != None :
+			return padre
+	return None
