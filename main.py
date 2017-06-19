@@ -1,6 +1,7 @@
 import argparse
 from popgrafo import popular_grafo
 from comandos import Comandos
+from time import time
 
 
 # hay que hacer que se puedan parsear varias acciones
@@ -14,6 +15,7 @@ command = Comandos()
 dic = { "similares" : command.similares,
 		"recomendar" : command.recomendar,
 		"centralidad" : command.centralidad,
+		"camino" : command.camino,
 		"distancias" : command.distancias,
 		"estadisticas" : command.estadisticas,
 		"comunidades" : command.comunidades
@@ -24,7 +26,12 @@ def main():
 	parser = argparse.ArgumentParser(description='TP3 - Grafos y eso')
 	parser.add_argument('narchivo', help='nombre del archivo que tiene los datos del grafo')
 	args = parser.parse_args()
-	grafo = popular_grafo(args.narchivo)		
+	print ("Poblar grafo...")
+	t_i = time()
+	grafo = popular_grafo(args.narchivo)
+	t_f = time()
+	t_t = t_f - t_i
+	print ("Poblar el grafo tardo: ") + str(t_t)		
 	comando = ""
 
 	print 'ingresar comando a utilizar ("salir" para salir de programa)'
