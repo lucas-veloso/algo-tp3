@@ -1,5 +1,4 @@
 from cola import * 
-from time import time
 
 class Grafo(object):
 
